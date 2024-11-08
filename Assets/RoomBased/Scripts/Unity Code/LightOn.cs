@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LightOn : MonoBehaviour
 {
-    Light lg;
+    [SerializeField] private Light lg;
     private void Start()
     {
         lg = GetComponent<Light>();
@@ -14,7 +14,8 @@ public class LightOn : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            lg.intensity = 10; // Turn on the light when the player enters
+            Debug.Log("Player entered trigger area."); // Debug log for entry
+            lg.intensity = 10; // Turn on the light
         }
     }
 
@@ -22,7 +23,8 @@ public class LightOn : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            lg.intensity = 0; // Turn off the light when the player exits
+            Debug.Log("Player exited trigger area."); // Debug log for exit
+            lg.intensity = 0; // Turn off the light
         }
     }
 }

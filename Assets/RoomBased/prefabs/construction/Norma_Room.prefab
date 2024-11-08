@@ -117,15 +117,15 @@ GameObject:
   m_Component:
   - component: {fileID: 3305411703468525845}
   - component: {fileID: 5904640961710103153}
-  - component: {fileID: 8654379202742352864}
   - component: {fileID: 3958601492080517539}
+  - component: {fileID: 8654379202742352864}
   m_Layer: 0
   m_Name: Spot Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3305411703468525845
 Transform:
   m_ObjectHideFlags: 0
@@ -202,6 +202,19 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &3958601492080517539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5160135677418706160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 090f8d164b005f84d9f27fc9e881f5d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lg: {fileID: 0}
 --- !u!65 &8654379202742352864
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -223,18 +236,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 10, y: 10, z: 10}
   m_Center: {x: 0, y: 0, z: 5.3}
---- !u!114 &3958601492080517539
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5160135677418706160}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 090f8d164b005f84d9f27fc9e881f5d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &5838293955437921933
 GameObject:
   m_ObjectHideFlags: 0
