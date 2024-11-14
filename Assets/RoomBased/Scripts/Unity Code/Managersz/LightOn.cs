@@ -12,9 +12,9 @@ public class LightOn : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("P" +
+            "layer"))
         {
-            Debug.Log("Player entered trigger area."); // Debug log for entry
             lg.intensity = 10; // Turn on the light
         }
     }
@@ -23,7 +23,6 @@ public class LightOn : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Player exited trigger area."); // Debug log for exit
             lg.intensity = 0; // Turn off the light
         }
     }
