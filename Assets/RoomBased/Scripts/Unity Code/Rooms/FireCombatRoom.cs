@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class CombatRoom : RoomBase
 {
+    public GameObject combatPanel;       // Main panel for "Start or Instructions"
+    public GameObject instructionsPanel; // Instructions panel
+    private bool isPlayerInside = false; // Track if the player is inside the trigger
+
     public override void SetRoomLocation(Vector2 coordinates)
     {
         base.SetRoomLocation(coordinates);
@@ -22,5 +26,55 @@ public class CombatRoom : RoomBase
     public override void OnRoomExited()
     {
         Debug.Log("You have exited the Fire combat room.");
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            OnRoomEntered();             // Call the base behavior
+            combatPanel.SetActive(true); // Show the main panel
+            isPlayerInside = true;
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            OnRoomExited();              // Call the base behavior
+            combatPanel.SetActive(false); // Hide both panels when leaving
+            instructionsPanel.SetActive(false);
+            isPlayerInside = false;
+        }
+    }
+
+    void Update()
+    {
+        if (isPlayerInside)
+        {
+            if (Input.GetKeyDown(KeyCode.E)) // Start the combat room
+            {
+                Debug.Log("Combat Room Started!");
+                StartCombatRoom();
+                combatPanel.SetActive(false); // Hide the main panel
+            }
+            else if (Input.GetKeyDown(KeyCode.R)) // Show instructions
+            {
+                combatPanel.SetActive(false);    // Hide the main panel
+                instructionsPanel.SetActive(true); // Show the instructions panel
+            }
+        }
+    }
+
+    public void BackToCombatPanel()
+    {
+        instructionsPanel.SetActive(false); // Hide the instructions panel
+        combatPanel.SetActive(true);        // Show the main panel
+    }
+
+    void StartCombatRoom()
+    {
+        Debug.Log("Combat has begun in this room!");
     }
 }
