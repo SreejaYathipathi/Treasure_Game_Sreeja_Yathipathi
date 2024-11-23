@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
         _gameMap = Instantiate(GameMapPrefab, transform);
         _gameMap.transform.position = Vector3.zero;
         // create the map
-        _gameMap.CreateMap();
+        _gameMap.CreateMap(this);
         Debug.Log("GameManager Setup Complete");
     }
 
@@ -36,12 +36,11 @@ public class GameManager : MonoBehaviour
     {
         // Intro
         Debug.Log("GameManager SpawnPlayer Begins");
-        // Pick a random starting room - this must be done only after the map is created
-        var randomStartingRoom = _gameMap.Rooms.ElementAt(Random.Range(0, _gameMap.Rooms.Keys.Count));
+        var startingRoom = _gameMap.Rooms[new Vector2(0, 0)];
         // Create the player
         _playerMovement = Instantiate(Playerprefab, transform);
         // Set their initial position
-        _playerMovement.transform.position = new Vector3(randomStartingRoom.Key.x, 0, randomStartingRoom.Key.y);
+        _playerMovement.transform.position = new Vector3(startingRoom.transform.position.x, 0, startingRoom.transform.position.z);
         // Call the Player Setup Function
         // _playerMovement.Setup();
         Debug.Log("GameManager SpawnPlayer Complete");

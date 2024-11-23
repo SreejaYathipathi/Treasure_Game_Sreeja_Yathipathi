@@ -14,6 +14,8 @@ public class UIManager : MonoBehaviour
         InGame,
         Pause,
         Instructions,
+        TSearchPanel,
+        NoSPanel,
         ScrollView
     }
     private void Start()
@@ -30,7 +32,7 @@ public class UIManager : MonoBehaviour
         OpenMainMenu();
     }
 
-    private void SetLayout(MenuLayouts Layout)
+    public void SetLayout(MenuLayouts Layout)
     {
         _currentLayout = Layout;
 
@@ -71,5 +73,15 @@ public class UIManager : MonoBehaviour
     public void ShowBagMenu()
     {
         SetLayout(MenuLayouts.ScrollView);
+    }
+    
+    public void TreasureSearchPanel()
+    {
+        SetLayout(MenuLayouts.TSearchPanel);
+    }
+    
+    public void NoSearchPanel()
+    {
+        SetLayout(MenuLayouts.NoSPanel);
     }
 }

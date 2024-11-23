@@ -21,17 +21,6 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        // Get movement input
-        float moveHorizontal = Input.GetAxis("Horizontal"); // Left/Right (A/D)
-        float moveVertical = Input.GetAxis("Vertical");     // Forward/Backward (W/S)
-
-        // Create a movement vector relative to the player's local rotation
-        Vector3 movement = transform.right * moveHorizontal + transform.forward * moveVertical;
-        movement = movement.normalized * moveSpeed * Time.deltaTime;
-
-        // Move the player in the direction they are facing
-        transform.Translate(movement, Space.World);
-
         // Check if the middle mouse button is held down for rotation
         if (Input.GetMouseButton(2)) // 2 represents the middle mouse button
         {
@@ -55,5 +44,28 @@ public class PlayerMovement : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
+    }
+
+    private void FixedUpdate()
+    {
+        Walk();
+    }
+
+    private void Walk()
+    {
+        // Get movement input
+        float moveHorizontal = Input.GetAxis("Horizontal"); // Left/Right (A/D)
+        float moveVertical = Input.GetAxis("Vertical");     // Forward/Backward (W/S)
+
+        // Create a movement vector relative to the player's local rotation
+        Vector3 movement = transform.right * moveHorizontal + transform.forward * moveVertical;
+        //movement = movement.normalized * moveSpeed * Time.deltaTime;
+
+        Vector3 velocity = movement * moveSpeed;
+
+        rb.velocity = new Vector3(velocity.x, 0, velocity.z);
+        
+        // Move the player in the direction they are facing
+        //transform.Translate(movement, Space.World);
     }
 }

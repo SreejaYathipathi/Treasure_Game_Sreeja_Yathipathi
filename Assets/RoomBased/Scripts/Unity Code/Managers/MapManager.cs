@@ -6,21 +6,31 @@ public class MapManager : MonoBehaviour
 {
     [SerializeField] private RoomBase[] RoomPrefabs;
 
-    private const float RoomSize = 15;
-    private int MapSize = 9;
+    private GameManager _gameManager;
+
+    private const float _roomSize = 15;
+    private int _mapSize = 5;
 
     readonly Dictionary<Vector2, RoomBase> _rooms = new();
     public Dictionary<Vector2, RoomBase> Rooms => _rooms;
 
-    public void CreateMap()
+    public void CreateMap(GameManager manager)
     {
-        for (int x = 0; x < MapSize; x++)
+        _gameManager = manager;
+        for (int x = 0; x < _mapSize; x++)
         {
-            for (int z = 0; z < MapSize; z++)
+            for (int z = 0; z < _mapSize; z++)
             {
-                Vector2 coords = new Vector2(x * RoomSize, z * RoomSize);
-
-                var roomInstance = Instantiate(RoomPrefabs[Random.Range(0, RoomPrefabs.Length)], transform);
+                Vector2 coords = new Vector2(x * _roomSize, z * _roomSize);
+                RoomBase roomInstance;
+                if (x == 0 && z == 0)
+                {
+                    roomInstance = Instantiate(RoomPrefabs[0], transform);
+                }
+                else
+                {
+                    roomInstance = Instantiate(RoomPrefabs[Random.Range(1, RoomPrefabs.Length)], transform);
+                }
 
                 roomInstance.SetRoomLocation(coords);
                 _rooms.Add(coords, roomInstance);
@@ -47,19 +57,19 @@ public class MapManager : MonoBehaviour
         {
             case Direction.North:
                 // Determine North Room
-                nextRoomCoordinates = currentRoom + (Vector2.up * RoomSize);
+                nextRoomCoordinates = currentRoom + (Vector2.up * _roomSize);
                 break;
             case Direction.East:
                 // east
-                nextRoomCoordinates = currentRoom + (Vector2.right * RoomSize);
+                nextRoomCoordinates = currentRoom + (Vector2.right * _roomSize);
                 break;
             case Direction.South:
                 // south
-                nextRoomCoordinates = currentRoom + (Vector2.down * RoomSize);
+                nextRoomCoordinates = currentRoom + (Vector2.down * _roomSize);
                 break;
             case Direction.West:
                 // west
-                nextRoomCoordinates = currentRoom + (Vector2.left * RoomSize);
+                nextRoomCoordinates = currentRoom + (Vector2.left * _roomSize);
                 break;
         }
 

@@ -337,3 +337,6 @@ MonoBehaviour:
   EastDoorway: {fileID: 6295491769153719378}
   SouthDoorway: {fileID: 3289486788853542573}
   WestDoorway: {fileID: 4085343111196997779}
+  diceGameManager: {fileID: 0}
+  combatPanel: {fileID: 0}
+  instructionsPanel: {fileID: 0}
