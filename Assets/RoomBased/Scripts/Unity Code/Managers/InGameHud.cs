@@ -1,12 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
 public class InGameHUD : MonoBehaviour
 {
-    [SerializeField] private Image HealthBar;
     [SerializeField] private Text Timer;
+    public TextMeshProUGUI HealthPoints;
+    public TextMeshProUGUI ScorePoints;
+    public TextMeshProUGUI EnemyHealthPoints;
+    public static InGameHUD Instance;
+
+    public int Health;
+    public int Score;
+    public int enemyHealth;
 
     private bool _gamePaused = true;
     private float _timer = 0.0f;
@@ -17,10 +26,21 @@ public class InGameHUD : MonoBehaviour
         Timer.color = Color.yellow;
     }
 
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject); // Prevent duplicate instances
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
+
     public void OnStartGame()
     {
         _gamePaused = false;
-        HealthBar.fillAmount = 1;
     }
 
     private void Update()
@@ -39,8 +59,22 @@ public class InGameHUD : MonoBehaviour
         _gamePaused = true;
     }
 
-    public void OnHealthChange(float currentHealth, float maxHealth)
+    public void IncreaseHealth(int value)
     {
-        HealthBar.fillAmount = currentHealth / maxHealth;
+        Health += value;
+        HealthPoints.text = $"{Health}";
     }
+
+    public void IncreaseScore(int value)
+    {
+        Score += value;
+        ScorePoints.text = $"{Score}";
+    }
+
+    public void DecreaseHealth(int value)
+    {
+        enemyHealth -= value;
+        EnemyHealthPoints.text = $"Enemy Health: {Mathf.Max(0, enemyHealth)}";
+    }
+
 }

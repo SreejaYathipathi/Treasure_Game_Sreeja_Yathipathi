@@ -27,6 +27,11 @@ public class MapManager : MonoBehaviour
                 {
                     roomInstance = Instantiate(RoomPrefabs[0], transform);
                 }
+                else if (IsAdjacentToStart(x, z))
+                {
+                    // Treasure rooms adjacent to the start room
+                    roomInstance = Instantiate(RoomPrefabs[1], transform);
+                }
                 else
                 {
                     roomInstance = Instantiate(RoomPrefabs[Random.Range(1, RoomPrefabs.Length)], transform);
@@ -46,6 +51,12 @@ public class MapManager : MonoBehaviour
 
             roomByCoordinate.Value.SetRooms(northRoom, eastRoom, southRoom, westRoom);
         }
+    }
+
+    private bool IsAdjacentToStart(int x, int z)
+    {
+        // Adjacent rooms are one step away from the starting room (0, 0)
+        return (Mathf.Abs(x - 0) == 1 && z == 0) || (x == 0 && Mathf.Abs(z - 0) == 1);
     }
 
     private RoomBase FindRoom(Vector2 currentRoom, Direction direction)

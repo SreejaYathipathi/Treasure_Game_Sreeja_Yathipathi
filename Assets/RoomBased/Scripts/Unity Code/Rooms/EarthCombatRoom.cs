@@ -4,73 +4,113 @@ using UnityEngine;
 
 public class EarthCombatRoom : RoomBase
 {
-    public DiceGameManager diceGameManager; // Reference to the DiceGameManager script
-    public GameObject combatPanel;       // Main panel for "Start or Instructions"
-    public GameObject instructionsPanel; // Instructions panel
-    private bool isPlayerInside = false; // Track if the player is inside the trigger
+    private CombatManager combatManager; // Reference to CombatManager
+    private EnemyManager enemyManager; // Reference to EnemyManager
+    private InGameHUD gameHud; // Reference to GameHUD
+    private UIManager _uiManager; // Reference to UIManager
+    private bool _hasBeenSearched = false; // Tracks if the treasure room has been searched
+    private bool _isPlayerInside = false; // Tracks if the player is inside the treasure room
 
     public override void SetRoomLocation(Vector2 coordinates)
     {
         base.SetRoomLocation(coordinates);
     }
 
+    private void Start()
+    {
+        _uiManager = FindObjectOfType<UIManager>();  // Only need to use this for UIManager as it's not a singleton
+
+    }
+
     public override void OnRoomEntered()
     {
-        Debug.Log("You have entered the Earth combat room.");
+        Debug.Log("You have entered the Fire combat room.");
+
+        // Ensure all singleton components are available
+        // Access the singleton instances directly
+        combatManager = CombatManager.Instance;
+        enemyManager = EnemyManager.Instance;
+        gameHud = InGameHUD.Instance;
+
+        // Ensure all singleton components are available
+        if (combatManager == null)
+        {
+            Debug.LogError("combatManager is not set up correctly.");
+        }
+        if (enemyManager == null)
+        {
+            Debug.LogError("enemyManager is not set up correctly.");
+        }
+        if (gameHud == null)
+        {
+            Debug.LogError("gameHud is not set up correctly.");
+        }
+        if (_uiManager == null)
+        {
+            Debug.LogError("_uiManager is not set up correctly.");
+        }
+
+        if (!_hasBeenSearched)
+        {
+            _isPlayerInside = true;
+            _uiManager.FireCombatPanel(); // Show the combat panel
+        }
     }
 
     public override void OnRoomSearched()
     {
-        Debug.Log("you can't search combat room.!");
+        Debug.Log("You can't search the combat room!");
     }
 
     public override void OnRoomExited()
     {
-        Debug.Log("You have exited the Earth combat room.");
+        Debug.Log("You have exited the Fire combat room.");
+
+        _isPlayerInside = false;
+
+        // Ensure no UI panels remain active when leaving
+        if (!_hasBeenSearched)
+        {
+            _uiManager.SetLayout(UIManager.MenuLayouts.InGame); // Close the combat panel if not searched
+        }
+
+        // Reset the room if needed, disable the enemy, etc.
+        ResetCombat();
     }
 
-//    void OnTriggerEnter(Collider other)
-//    {
-//        if (other.CompareTag("Player"))
-//        {
-//            OnRoomEntered();             // Call the base behavior
-//            combatPanel.SetActive(true); // Show the main panel
-//            isPlayerInside = true;
-//        }
-//    }
+    private void Update()
+    {
+        if (_isPlayerInside && !_hasBeenSearched)
+        {
+            if (Input.GetKeyDown(KeyCode.E)) // Player chooses to start combat
+            {
+                StartCombat();
+            }
+            else if (Input.GetKeyDown(KeyCode.R)) // Player declines combat
+            {
+                DeclineCombat();
+            }
+        }
+    }
 
-//    void OnTriggerExit(Collider other)
-//    {
-//        if (other.CompareTag("Player"))
-//        {
-//            OnRoomExited();              // Call the base behavior
-//            combatPanel.SetActive(false); // Hide both panels when leaving
-//            instructionsPanel.SetActive(false);
-//            isPlayerInside = false;
-//        }
-//    }
+    private void StartCombat()
+    {
+        // Activate the enemy and display its health and inventory
+        enemyManager.gameObject.SetActive(true);
 
-//    void Update()
-//    {
-//        if (isPlayerInside)
-//        {
-//            if (Input.GetKeyDown(KeyCode.E)) // Start the combat room
-//            {
-//                Debug.Log("Combat Room Started!");
-//                combatPanel.SetActive(false); // Hide the main panel
-//                diceGameManager.StartDiceGame();
-//            }
-//            else if (Input.GetKeyDown(KeyCode.R)) // Show instructions
-//            {
-//                combatPanel.SetActive(false);    // Hide the main panel
-//                instructionsPanel.SetActive(true); // Show the instructions panel
-//            }
-//        }
-//    }
+        // Start the combat manager to trigger combat flow
+        combatManager.StartCombat();
+    }
 
-//    public void BackToCombatPanel()
-//    {
-//        instructionsPanel.SetActive(false); // Hide the instructions panel
-//        combatPanel.SetActive(true);        // Show the main panel
-//    }
+    private void DeclineCombat()
+    {
+        _uiManager.NoSearchPanel();
+    }
+
+    private void ResetCombat()
+    {
+        // Reset or disable components when exiting the room
+        enemyManager.gameObject.SetActive(false);  // Hide the enemy
+    }
+
 }

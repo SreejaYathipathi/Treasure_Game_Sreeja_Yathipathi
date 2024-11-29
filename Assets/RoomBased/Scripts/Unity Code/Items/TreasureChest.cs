@@ -4,34 +4,80 @@ using UnityEngine;
 
 public class TreasureChest : MonoBehaviour
 {
-    public Animator chestAnimator; // Assign the Animator in the Inspector
+    private Animator chestAnimator; // Assign the Animator in the Inspector
     private bool isOpen = false;   // Tracks the state of the chest
-    private bool isPlayerNearby = false;
+    private bool isInsideTrigger = false;
+    [SerializeField] private Transform OpenChestText;
+    private int _itemCollect = 0;
+    [SerializeField] private ItemData[] ItemPrefabs;
+    private int _itemsInUI = 4;
+    [SerializeField] private GameObject _itemPos;
 
     void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.F))
-        //{
-        //    ToggleChest();
-        //}
-
-        if (isPlayerNearby && Input.GetKeyDown(KeyCode.F))
+        if (isInsideTrigger == true && Input.GetButtonDown("F"))
         {
-            ToggleChest();
+            OpenChest();
         }
     }
 
-    void ToggleChest()
+    void OpenChest()
     {
-        isOpen = !isOpen; // Toggle the state
-        chestAnimator.SetBool("IsOpen", isOpen); // Update Animator parameter
+        
+        chestAnimator.SetBool("IsOpen", !isOpen); // Update Animator parameter
+
+        if (isOpen == false)
+        {
+            OpenChestText.gameObject.SetActive(false); // Hide message when chest is opened
+            // Start item spawn after a delay
+            StartCoroutine(SpawnItemsWithDelay(1f)); // delay
+            isOpen = true;
+        }
+    }
+
+    IEnumerator SpawnItemsWithDelay(float delay)
+    {
+        if (isOpen == false)
+        {
+            
+            yield return new WaitForSeconds(delay); // Wait for the chest opening animation
+
+            for (int x = 0; x < _itemsInUI; x++)
+            {
+                // Spawn a random item
+                ItemData spawnedItem = Instantiate(ItemPrefabs[Random.Range(0, ItemPrefabs.Length)],
+                    _itemPos.transform.position, Quaternion.identity
+                );
+
+
+                // Apply a simple pop-out effect
+                Rigidbody rb = spawnedItem.GetComponent<Rigidbody>();
+                if (rb == null)
+                {
+                    rb = spawnedItem.gameObject.AddComponent<Rigidbody>();
+                }
+
+                rb.AddForce(transform.up * 10 + transform.right * (10) * -1, ForceMode.Impulse);
+
+                yield return new WaitForSeconds(1f);
+
+            }
+        }
+        
     }
 
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player")) // Ensure the player has the "Player" tag
         {
-            isPlayerNearby = true;
+            isInsideTrigger = true;
+            chestAnimator = GetComponent<Animator>();
+
+
+            if (isOpen == false)
+            {
+                OpenChestText.gameObject.SetActive(true); // Show "Press F to open" when chest is closed
+            }
         }
     }
 
@@ -39,7 +85,8 @@ public class TreasureChest : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            isPlayerNearby = false;
+            isInsideTrigger = false;
+            OpenChestText.gameObject.SetActive(false); // Hide "Press F to open" when player exits trigger area
         }
     }
 

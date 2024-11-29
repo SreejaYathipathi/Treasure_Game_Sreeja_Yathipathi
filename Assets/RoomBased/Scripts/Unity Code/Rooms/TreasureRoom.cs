@@ -7,7 +7,6 @@ public class TreasureRoom : RoomBase
     private UIManager _uiManager;
     private bool _hasBeenSearched = false; // Tracks if the treasure room has been searched
     private bool _isPlayerInside = false; // Tracks if the player is inside the treasure room
-
     [SerializeField] private GameObject[] items; // Items to reveal after searching, assignable in Inspector
 
     public override void SetRoomLocation(Vector2 coordinates)
@@ -15,16 +14,11 @@ public class TreasureRoom : RoomBase
         base.SetRoomLocation(coordinates);
     }
 
-    public void Initialize(UIManager uiManager)
+    private void Start()
     {
-        _uiManager = uiManager;
+        _uiManager = FindObjectOfType<UIManager>();
+        
     }
-
-    // Initialize the UIManager dynamically
-    //public void InitializeUIManager(UIManager manager)
-    //{
-    //    uiManager = manager;
-    //}
 
     public override void OnRoomEntered()
     {
@@ -33,6 +27,7 @@ public class TreasureRoom : RoomBase
         if (!_hasBeenSearched)
         {
             _isPlayerInside = true;
+            
             _uiManager.TreasureSearchPanel(); // Show the treasure search panel
         }
     }

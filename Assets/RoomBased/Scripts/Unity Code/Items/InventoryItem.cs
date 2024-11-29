@@ -5,21 +5,43 @@ using UnityEngine.UI;
 
 public class InventoryItem : MonoBehaviour
 {
-    //[SerializeField] private Image ItemIcon;
-    //[SerializeField] private Text ItemName;
+    public ItemData itemData;
+    //private InGameHUD GameHud;
 
-    //public void Setup(ItemData itemData)
-    //{
-    //    switch (itemData.ItemRarity)
-    //    {
-    //        case ItemData.Rarity.Common:
-    //            ItemIcon.color = Color.white;
-    //            break;
-    //        case ItemData.Rarity.Rare:
-    //            ItemIcon.color = Color.red;
-    //            break;
-    //    }
+    public Button RemoveButton;
+    public void Removeitem()
+    {
+        if (itemData != null)
+        {
+            InventoryManager.Instance.Remove(this);
+            Destroy(gameObject);
+        }
+    }
 
-    //    ItemName.text = itemData.ItemName;
-    //}
+    public void AddItem(ItemData newItem)
+    {
+
+        if (newItem == null)
+        {
+            Debug.LogError("Tried to add a null item to the inventory.");
+            return;
+        }
+
+        itemData = newItem;
+    }
+
+    public void ItemUsed()
+    {
+        switch (itemData.itemtype)
+        {
+            case ItemData.ItemType.Potion:
+                // Now it correctly uses the healingAmount from Potions
+                InGameHUD.Instance.IncreaseHealth(itemData.Values);
+                break;
+            case ItemData.ItemType.Weapon:
+                // Now it correctly uses the damageValue from Weapons
+                InGameHUD.Instance.IncreaseScore(itemData.Values);
+                break;
+        }
+    }
 }

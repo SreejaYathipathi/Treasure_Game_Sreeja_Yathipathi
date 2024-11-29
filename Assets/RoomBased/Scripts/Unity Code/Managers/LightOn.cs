@@ -12,8 +12,7 @@ public class LightOn : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("P" +
-            "layer"))
+        if (other.CompareTag("Player"))
         {
             lg.intensity = 10; // Turn on the light
         }

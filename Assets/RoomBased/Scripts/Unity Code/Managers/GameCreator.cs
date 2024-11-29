@@ -14,7 +14,6 @@ public class GameManager : MonoBehaviour
     public void Start()
     {
         Debug.Log("Game has started....");
-        // Zero our manager position
         transform.position = Vector3.zero;
 
         SetupMap();
@@ -41,8 +40,6 @@ public class GameManager : MonoBehaviour
         _playerMovement = Instantiate(Playerprefab, transform);
         // Set their initial position
         _playerMovement.transform.position = new Vector3(startingRoom.transform.position.x, 0, startingRoom.transform.position.z);
-        // Call the Player Setup Function
-        // _playerMovement.Setup();
         Debug.Log("GameManager SpawnPlayer Complete");
     }
 }

@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8489604122977829998, guid: faed1dd0ccfc1654988651a5e0228107, type: 3}
       propertyPath: m_LocalScale.x
-      value: 3
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 8489604122977829998, guid: faed1dd0ccfc1654988651a5e0228107, type: 3}
       propertyPath: m_LocalScale.y
-      value: 3
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 8489604122977829998, guid: faed1dd0ccfc1654988651a5e0228107, type: 3}
       propertyPath: m_LocalScale.z
-      value: 3
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 8489604122977829998, guid: faed1dd0ccfc1654988651a5e0228107, type: 3}
       propertyPath: m_LocalPosition.x
@@ -68,6 +68,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WALKING Prefab 4
       objectReference: {fileID: 0}
+    - target: {fileID: 9143489179313982069, guid: faed1dd0ccfc1654988651a5e0228107, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -75,6 +79,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 9143489179313982069, guid: faed1dd0ccfc1654988651a5e0228107, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1209175172230944999}
+    - targetCorrespondingSourceObject: {fileID: 9143489179313982069, guid: faed1dd0ccfc1654988651a5e0228107, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1334016567377794314}
   m_SourcePrefab: {fileID: 100100000, guid: faed1dd0ccfc1654988651a5e0228107, type: 3}
 --- !u!4 &5835549428058669308 stripped
 Transform:
@@ -107,6 +114,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &1334016567377794314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6613846423869951719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f5e29c42d7b0c649a1e0da818f4c6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyHealth: 50
 --- !u!1001 &2794884165689072167
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -211,6 +231,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 9418a5fcbafe84543998bd7c831a9ee1, type: 2}
+    - target: {fileID: 5160135677418706160, guid: 1e31ff6a99752ed418ba4d0d96f95e1e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5697755523135783795, guid: 1e31ff6a99752ed418ba4d0d96f95e1e, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -337,6 +361,3 @@ MonoBehaviour:
   EastDoorway: {fileID: 6295491769153719378}
   SouthDoorway: {fileID: 3289486788853542573}
   WestDoorway: {fileID: 4085343111196997779}
-  diceGameManager: {fileID: 0}
-  combatPanel: {fileID: 0}
-  instructionsPanel: {fileID: 0}

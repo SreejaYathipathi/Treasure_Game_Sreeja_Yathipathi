@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using TMPro;
 public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed = 5f;           // Speed for moving
     public float mouseSensitivity = 300f;  // Mouse sensitivity for rotation
     private float rotationY = 0f;          // Store the current Y rotation
+
+    private UIManager uiManager;
 
     Rigidbody rb;
 
@@ -18,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;  // Prevent player from rotating due to collisions
     }
+
 
     void Update()
     {
@@ -59,13 +62,10 @@ public class PlayerMovement : MonoBehaviour
 
         // Create a movement vector relative to the player's local rotation
         Vector3 movement = transform.right * moveHorizontal + transform.forward * moveVertical;
-        //movement = movement.normalized * moveSpeed * Time.deltaTime;
 
         Vector3 velocity = movement * moveSpeed;
 
         rb.velocity = new Vector3(velocity.x, 0, velocity.z);
         
-        // Move the player in the direction they are facing
-        //transform.Translate(movement, Space.World);
     }
 }

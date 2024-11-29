@@ -1,22 +1,39 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class ItemData : MonoBehaviour
 {
-    public ItemData(string itemName, Rarity rarity)
+    public Rarity ItemRarity;
+    public string ItemName;
+    public Sprite icon;
+    public virtual int Values {  get; }
+
+    public ItemType itemtype;
+
+    public enum ItemType
     {
-        ItemName = itemName;
-        ItemRarity = rarity;
+        Potion,
+        Weapon
     }
 
     public enum Rarity
     {
         Common,
-        Rare
+        Uncommon,
+        Rare,
+        Legendary
     }
 
-    public string ItemName;
-    public Rarity ItemRarity;
+    // Initialization method to set item properties
+    public void Initialize(string itemName, Rarity rarity)
+    {
+        this.ItemName = itemName;
+        this.ItemRarity = rarity;
+    }
+
+    public virtual void UseItem()
+    {
+        Debug.Log($"Using item: {this.ItemName}");
+    }
 }
