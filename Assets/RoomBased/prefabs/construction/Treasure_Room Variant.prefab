@@ -1471,7 +1471,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: dd44f6a8d0bab8747ad3b955b8cd795c, type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: TChest
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
