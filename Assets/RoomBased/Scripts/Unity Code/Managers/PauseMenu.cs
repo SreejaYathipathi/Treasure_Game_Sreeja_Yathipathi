@@ -6,10 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-    [SerializeField] private InventoryManager inventoryManager;
-
     public GameObject pauseMenu; // Assign the Panel (Pause Menu)
-    private bool isPaused = false;
+    private bool _isPaused = false;
 
     List<ItemData> _inventoryItems = new();
 
@@ -29,9 +27,9 @@ public class PauseMenu : MonoBehaviour
 
     public void TogglePause()
     {
-        isPaused = !isPaused;
+        _isPaused = !_isPaused;
 
-        if (isPaused)
+        if (_isPaused)
         {
             Time.timeScale = 0; // Pause the game
             pauseMenu.SetActive(true); // Show the pause menu
@@ -49,7 +47,7 @@ public class PauseMenu : MonoBehaviour
 
     public void ButtonResume()
     {
-        isPaused = false;
+        _isPaused = false;
         Time.timeScale = 1; // Resume the game
         pauseMenu.SetActive(false); // Hide the pause menu
         Cursor.lockState = CursorLockMode.Locked;

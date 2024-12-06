@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class LightOn : MonoBehaviour
 {
-    [SerializeField] private Light lg;
+    [SerializeField] private Light _lg;
     private void Start()
     {
-        lg = GetComponent<Light>();
+        _lg = GetComponent<Light>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            lg.intensity = 10; // Turn on the light
+            _lg.intensity = 10; // Turn on the light
         }
     }
 
@@ -22,7 +22,7 @@ public class LightOn : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            lg.intensity = 0; // Turn off the light
+            _lg.intensity = 0; // Turn off the light
         }
     }
 }

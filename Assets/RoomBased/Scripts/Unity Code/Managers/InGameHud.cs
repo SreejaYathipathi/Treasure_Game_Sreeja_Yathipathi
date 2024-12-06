@@ -10,12 +10,11 @@ public class InGameHUD : MonoBehaviour
     [SerializeField] private Text Timer;
     public TextMeshProUGUI HealthPoints;
     public TextMeshProUGUI ScorePoints;
-    public TextMeshProUGUI EnemyHealthPoints;
     public static InGameHUD Instance;
 
     public int Health;
     public int Score;
-    public int enemyHealth;
+    
 
     private bool _gamePaused = true;
     private float _timer = 0.0f;
@@ -35,7 +34,6 @@ public class InGameHUD : MonoBehaviour
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject);
     }
 
     public void OnStartGame()
@@ -70,11 +68,4 @@ public class InGameHUD : MonoBehaviour
         Score += value;
         ScorePoints.text = $"{Score}";
     }
-
-    public void DecreaseHealth(int value)
-    {
-        enemyHealth -= value;
-        EnemyHealthPoints.text = $"Enemy Health: {Mathf.Max(0, enemyHealth)}";
-    }
-
 }

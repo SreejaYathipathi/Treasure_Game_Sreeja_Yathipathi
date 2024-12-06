@@ -8,9 +8,12 @@ public class UIManager : MonoBehaviour
 {
     private LayoutTag[] Layouts;
     [SerializeField] private InGameHUD GameHud;
-    [SerializeField] private GameObject messagePanel; // Assign in Inspector
-    [SerializeField] private TextMeshProUGUI messageText; // Assign in Inspector
-    [SerializeField] private GameObject enemyHealthPanel;
+    [SerializeField] private GameObject _messagePanel; // Assign in Inspector
+    [SerializeField] private TextMeshProUGUI _messageText; // Assign in Inspector
+    [SerializeField] public GameObject EnemyHealthPanel;
+    [SerializeField] public TextMeshProUGUI EnemyHealthPoints;
+
+    public int _enemyHealth;
 
     private static MenuLayouts _currentLayout = MenuLayouts.Main;
     public enum MenuLayouts
@@ -118,13 +121,13 @@ public class UIManager : MonoBehaviour
 
     public void ShowMessagePanel(string message)
     {
-        messageText.text = message;
-        messagePanel.SetActive(true);
+        _messageText.text = message;
+        _messagePanel.SetActive(true);
     }
 
     public void HideMessagePanel()
     {
-        messagePanel.SetActive(false);
+        _messagePanel.SetActive(false);
     }
 
     public void ShowInventoryPanel()
@@ -140,15 +143,5 @@ public class UIManager : MonoBehaviour
     public void PlayerWonPanel()
     {
         SetLayout(MenuLayouts.WinPanel);
-    }
-
-    public void ShowEnemyHealthPanel()
-    {
-        enemyHealthPanel.SetActive(true); // Activate the health panel
-    }
-
-    public void HideEnemyHealthPanel()
-    {
-        enemyHealthPanel.SetActive(false); // Deactivate the health panel
     }
 }

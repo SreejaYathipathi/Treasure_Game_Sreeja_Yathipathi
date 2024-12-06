@@ -7,6 +7,7 @@ public class ItemData : MonoBehaviour
     public Rarity ItemRarity;
     public string ItemName;
     public Sprite icon;
+
     public virtual int Values {  get; }
 
     public ItemType itemtype;
@@ -30,10 +31,5 @@ public class ItemData : MonoBehaviour
     {
         this.ItemName = itemName;
         this.ItemRarity = rarity;
-    }
-
-    public virtual void UseItem()
-    {
-        Debug.Log($"Using item: {this.ItemName}");
     }
 }

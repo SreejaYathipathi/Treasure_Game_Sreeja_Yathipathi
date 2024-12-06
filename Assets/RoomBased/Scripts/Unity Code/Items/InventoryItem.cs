@@ -5,10 +5,16 @@ using UnityEngine.UI;
 
 public class InventoryItem : MonoBehaviour
 {
+    private UIManager _uiManager;  // Reference to the UIManager
     public ItemData itemData;
-    //private InGameHUD GameHud;
 
     public Button RemoveButton;
+
+    private void Awake()
+    {
+        // Ensure UIManager reference is set
+        _uiManager = FindObjectOfType<UIManager>();
+    }
     public void Removeitem()
     {
         if (itemData != null)
@@ -40,7 +46,10 @@ public class InventoryItem : MonoBehaviour
                 break;
             case ItemData.ItemType.Weapon:
                 // Now it correctly uses the damageValue from Weapons
+                Debug.Log($"IncreaseScore : {itemData.Values}");
                 InGameHUD.Instance.IncreaseScore(itemData.Values);
+                Debug.Log($"DecreaseHealth : {itemData.Values}");
+                Enemy.Instance.TakeDamage(itemData.Values);
                 break;
         }
     }

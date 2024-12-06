@@ -70,7 +70,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9143489179313982069, guid: faed1dd0ccfc1654988651a5e0228107, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -81,7 +81,10 @@ PrefabInstance:
       addedObject: {fileID: 1209175172230944999}
     - targetCorrespondingSourceObject: {fileID: 9143489179313982069, guid: faed1dd0ccfc1654988651a5e0228107, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1334016567377794314}
+      addedObject: {fileID: 5750363454322707767}
+    - targetCorrespondingSourceObject: {fileID: 9143489179313982069, guid: faed1dd0ccfc1654988651a5e0228107, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1576155426976241602}
   m_SourcePrefab: {fileID: 100100000, guid: faed1dd0ccfc1654988651a5e0228107, type: 3}
 --- !u!4 &5835549428058669308 stripped
 Transform:
@@ -114,7 +117,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &1334016567377794314
+--- !u!114 &5750363454322707767
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -123,10 +126,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 6613846423869951719}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f5e29c42d7b0c649a1e0da818f4c6b4, type: 3}
+  m_Script: {fileID: 11500000, guid: 9867c5657056fc14fa3fce4b09de6c87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyHealth: 50
+  startingHealth: 40
+--- !u!65 &1576155426976241602
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6613846423869951719}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 5.8, y: 4, z: 5.8}
+  m_Center: {x: 0, y: 1.8, z: 0}
 --- !u!1001 &2794884165689072167
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -361,3 +385,4 @@ MonoBehaviour:
   EastDoorway: {fileID: 6295491769153719378}
   SouthDoorway: {fileID: 3289486788853542573}
   WestDoorway: {fileID: 4085343111196997779}
+  enemy: {fileID: 6613846423869951719}

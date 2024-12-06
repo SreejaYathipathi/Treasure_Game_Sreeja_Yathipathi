@@ -4,9 +4,9 @@ using UnityEngine;
 using TMPro;
 public class PlayerMovement : MonoBehaviour
 {
-    public float moveSpeed = 5f;           // Speed for moving
-    public float mouseSensitivity = 300f;  // Mouse sensitivity for rotation
-    private float rotationY = 0f;          // Store the current Y rotation
+    public float _moveSpeed = 5f;           // Speed for moving
+    public float _mouseSensitivity = 300f;  // Mouse sensitivity for rotation
+    private float _rotationY = 0f;          // Store the current Y rotation
 
     private UIManager uiManager;
 
@@ -32,13 +32,13 @@ public class PlayerMovement : MonoBehaviour
             Cursor.visible = false;
 
             // Get horizontal mouse movement only for rotation, with adjustable sensitivity
-            float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+            float _mouseX = Input.GetAxis("Mouse X") * _mouseSensitivity * Time.deltaTime;
 
             // Update rotationY for smooth 360-degree rotation
-            rotationY += mouseX;
+            _rotationY += _mouseX;
 
             // Apply rotation around the Y-axis only
-            Quaternion targetRotation = Quaternion.Euler(0, rotationY, 0);
+            Quaternion targetRotation = Quaternion.Euler(0, _rotationY, 0);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 10 * Time.deltaTime);
         }
         else
@@ -57,13 +57,13 @@ public class PlayerMovement : MonoBehaviour
     private void Walk()
     {
         // Get movement input
-        float moveHorizontal = Input.GetAxis("Horizontal"); // Left/Right (A/D)
-        float moveVertical = Input.GetAxis("Vertical");     // Forward/Backward (W/S)
+        float _moveHorizontal = Input.GetAxis("Horizontal"); // Left/Right (A/D)
+        float _moveVertical = Input.GetAxis("Vertical");     // Forward/Backward (W/S)
 
         // Create a movement vector relative to the player's local rotation
-        Vector3 movement = transform.right * moveHorizontal + transform.forward * moveVertical;
+        Vector3 movement = transform.right * _moveHorizontal + transform.forward * _moveVertical;
 
-        Vector3 velocity = movement * moveSpeed;
+        Vector3 velocity = movement * _moveSpeed;
 
         rb.velocity = new Vector3(velocity.x, 0, velocity.z);
         

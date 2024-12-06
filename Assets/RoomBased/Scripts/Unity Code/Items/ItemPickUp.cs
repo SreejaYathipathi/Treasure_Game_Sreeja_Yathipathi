@@ -45,7 +45,6 @@ public class ItemPickUp : MonoBehaviour
                     // Check if the item is a weapon or potion to display specific attributes
                     if (itemData[0] is Weapons weapon)
                     {
-                        message += $"\nDurability: {weapon.durability}";
                         message += $"\nDamage: {weapon.minDamageValue} - {weapon.maxDamageValue}";
                     }
                     else if (itemData[0] is Potions potion)
@@ -96,7 +95,6 @@ public class ItemPickUp : MonoBehaviour
 
                 if (itemData[0] is Weapons weapon)
                 {
-                    message += $"\nDurability: {weapon.durability}";    
                     message += $"\nDamage: {weapon.minDamageValue} - {weapon.maxDamageValue}";
                 }
                 else if (itemData[0] is Potions potion)

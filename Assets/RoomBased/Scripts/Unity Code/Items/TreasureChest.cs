@@ -57,7 +57,7 @@ public class TreasureChest : MonoBehaviour
                     rb = spawnedItem.gameObject.AddComponent<Rigidbody>();
                 }
 
-                rb.AddForce(transform.up * 10 + transform.right * (10) * -1, ForceMode.Impulse);
+                rb.AddForce(transform.right * (10) * -1, ForceMode.Impulse);
 
                 yield return new WaitForSeconds(1f);
 
